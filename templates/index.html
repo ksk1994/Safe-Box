@@ -1,0 +1,355 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Home Page
+{% endblock %}
+
+{% block main %}
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-6">
+                <button id="encrypt_text" class="btn stybutton" type="button" data-bs-toggle="collapse" data-bs-target="#collapseWidthExample" aria-expanded="false" aria-controls="collapseWidthExample">
+                    Encrypt Your Note
+                </button>
+                <div class=" container-fluid py-5 text-center" style="min-height: 120px;">
+                    <div class="collapse collapse-vertical" id="collapseWidthExample">
+                      <div style="width: auto;">
+                        <form>
+                            <div class="mb-3">
+                                <label for="encryption-code" class="col-form-label">Encryption Code:</label>
+                                <div class="row">
+                                  <div class="col-sm"><input style="background-color: #EDF5E1" type="number" class="form-control" id="encryption-code1"></div>
+                                  <div class="col-sm"><input style="background-color: #EDF5E1" type="number" class="form-control" id="encryption-code2"></div>
+                                  <div class="col-sm"><input style="background-color: #EDF5E1" type="number" class="form-control" id="encryption-code3"></div>
+                                </div>
+                                <p id="code_alert"></p>
+                            </div>
+                            <div class="mb-3">
+                                <label for="text_to_encrypt" class="col-form-label">Message:</label>
+                                <textarea class="form-control style" type="text" id="text_to_encrypt"></textarea>
+                                <p id="text_alert"></p>
+                                <button type="button" id="encrypt" class="btn stybutton">Encrypt</button>
+                                <div class="form-floating">
+                                  <textarea class="form-control style" placeholder="Encrypted Text" id="encrypted_text" style="height: 100px"></textarea>
+                                  <label for="floatingTextarea2">Encrypted Text</label>
+                                </div>
+                            </div>
+                        </form>
+                      </div>
+                    </div>
+                  </div>
+            </div>
+
+
+
+              <div class="col-6">
+                <button id="decrypt_text" class="btn stybutton" type="button" data-bs-toggle="collapse" data-bs-target="#collapseWidthExample2" aria-expanded="false" aria-controls="collapseWidthExample2">
+                    Decrypt Your Note
+                  </button>
+                  <div class=" container-fluid py-5 text-center" style="min-height: 120px;">
+                    <div class="collapse collapse-vertical" id="collapseWidthExample2">
+                      <div  style="width: auto;">
+                        <form>
+                          <div class="mb-3">
+                              <label for="decryption-code"class="col-form-label">Decryption Code: </label>
+                              <div class="row">
+                                <div class="col-sm"><input style="background-color: #EDF5E1" type="number" class="form-control" id="decryption_code1"></div>
+                                <div class="col-sm"><input style="background-color: #EDF5E1" type="number" class="form-control" id="decryption_code2"></div>
+                                <div class="col-sm"><input style="background-color: #EDF5E1" type="number" class="form-control" id="decryption_code3"></div>
+                              </div>
+                              <p id="de_code_alert"></p>
+                          </div>
+                          <div class="mb-3">
+                              <label for="text_to_decrypt" class="col-form-label">Text To Decrypt: </label>
+
+                              <textarea class="form-control style" type="text" id="text_to_decrypt"></textarea>
+                              <p id="de_text_alert"></p>
+                              <button type="button" id="decrypt" class="btn stybutton">Decrypt</button>
+                              <div class="form-floating">
+                                <textarea class="form-control style" placeholder="Decrypted Text" id="decrypted_text" style="height: 100px"></textarea>
+                                <label for="floatingTextarea2">Decrypted Text</label>
+                              </div>
+
+                          </div>
+                      </form>
+                      </div>
+                    </div>
+                  </div>
+            </div>
+
+        </div>
+
+    </div>
+    <div class="container-fluid">
+      <form action="/" method="post">
+        <div class="mb-3">
+          <input class="style" autocomplete="off" autofocus class="form-control mx-auto w-auto" id="folder_name" name="folder_name" placeholder="Folder Name" type="text">
+      </div>
+        <div class="mb-3">
+          <div class="form-floating">
+            <textarea class="form-control mb-3 style" placeholder="Text" type="text" name="text" style="height: 100px"></textarea>
+            <label for="floatingTextarea2">Note to save</label>
+          </div>
+          <button type="submit" id="save" class="btn stybutton">SAVE</button>
+        </div>
+    </form>
+    </div>
+
+      <div class="accordion accordion-flush style">
+        {% for i in range(length) %}
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="headingOne">
+            <button class="dataheader accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{ i }}" aria-expanded="false" aria-controls="collapse{{ i }}">
+              {{ folder_list[i] }}
+            </button>
+          </h2>
+          {% for y in range(length1[i]) %}
+          <div id="collapse{{ i }}" class="accordion-collapse collapse dataarea" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+            <div class="accordion-body container">
+              <div class="row">
+                <div class="col-8" style="text-align: left;">{{ datas[i][y] }}</div>
+                <div class="gap-2 d-md-flex justify-content-md-end">
+
+                  <button id="{{ i }}{{ y }}_decrypt_text" type="button" class="btn stybutton" data-bs-toggle="modal" data-bs-target="#staticBackdrop{{ i }}{{ y }}">
+                    Decrypt
+                  </button>
+                  <div class="modal fade" id="staticBackdrop{{ i }}{{ y }}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h5 class="modal-title">Decryption Code</h5>
+                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                          <form>
+                            <div class="mb-3">
+                                <label class="col-form-label">Decryption Code: </label>
+                                <div class="row">
+                                  <div class="col-sm"><input style="background-color: #EDF5E1" type="number" class="form-control" id="decryption_code1_{{ i }}{{ y }}"></div>
+                                  <div class="col-sm"><input style="background-color: #EDF5E1" type="number" class="form-control" id="decryption_code2_{{ i }}{{ y }}"></div>
+                                  <div class="col-sm"><input style="background-color: #EDF5E1" type="number" class="form-control" id="decryption_code3_{{ i }}{{ y }}"></div>
+                                </div>
+                                <p id="{{ i }}{{ y }}_de_code_alert"></p>
+                            </div>
+                            <div class="mb-3">
+                                <label for="text_to_decrypt" class="col-form-label">Text To Decrypt: </label>
+                                <textarea class="form-control style" type="text" id="{{ i }}{{ y }}_text_to_decrypt" disabled>{{ datas[i][y] }}</textarea>
+                                <p id="{{ i }}{{ y }}_de_text_alert"></p>
+                                <div class="form-floating">
+                                  <textarea class="form-control style" placeholder="Decrypted Text" id="{{ i }}{{ y }}_decrypted_text" style="height: 100px"></textarea>
+                                  <label for="floatingTextarea2">Decrypted Text</label>
+                                </div>
+                            </div>
+                        </form>
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn stybutton" data-bs-dismiss="modal">Close</button>
+                          <button type="button" id="{{ i }}{{ y }}_decrypt" class="btn stybutton">Decrypt</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <form action="/delete" method="post">
+                  <input type="hidden" id="data" name="data" value="{{ datas[i][y] }}">
+                  <button type="button" class="btn stybutton" data-bs-toggle="modal" data-bs-target="#delete_confirm{{ i }}{{ y }}">Delete</button>
+                  <div class="modal fade" id="delete_confirm{{ i }}{{ y }}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h5 class="modal-title" id="staticBackdropLabel">Confirm Delete</h5>
+                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                          Are you sure you want to delete this?
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                          <button type="submit" class="btn stybutton">Delete</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </form>
+
+              </div>
+              </div>
+            </div>
+          </div>
+          <script>
+            function saved_de_clear() {
+              document.getElementById("{{ i }}{{ y }}_de_code_alert").innerHTML = '';
+              document.getElementById("{{ i }}{{ y }}_de_text_alert").innerHTML = '';
+              return;
+            };
+          document.addEventListener('DOMContentLoaded', function() {
+            document.getElementById("{{ i }}{{ y }}_decrypt_text").addEventListener('click', function() {
+              saved_de_clear()
+              document.getElementById("{{ i }}{{ y }}_decrypt").addEventListener('click', function() {
+                saved_de_clear();
+                let code1 = document.getElementById("decryption_code1_{{ i }}{{ y }}");
+                let code2 = document.getElementById("decryption_code2_{{ i }}{{ y }}");
+                let code3 = document.getElementById("decryption_code3_{{ i }}{{ y }}");
+                let text = document.getElementById("{{ i }}{{ y }}_text_to_decrypt");
+                if ((code1.value.length < 1) || (code2.value.length < 1) || (code3.value.length < 1)) {
+                    document.getElementById('{{ i }}{{ y }}_de_code_alert').innerHTML = 'Please specify a key with which to encrypt the message.';
+                }
+                else if (text.value.length < 1) {
+                    document.getElementById('{{ i }}{{ y }}_de_text_alert').innerHTML = 'No plain text to encrypt!  Please enter or paste plain text in the field above.';
+                } else {
+                  let decrypted = decrypt(text, code1, code2, code3);
+                    document.getElementById("{{ i }}{{ y }}_decrypted_text").value = decrypted;
+                }
+            });
+          });
+        });
+          </script>
+          {% endfor %}
+        </div>
+        {% endfor %}
+      </div>
+    <script>
+        function clear_all() {
+                document.getElementById("encryption-code1").value = '';
+                document.getElementById("encryption-code2").value = '';
+                document.getElementById("encryption-code3").value = '';
+                document.getElementById("text_to_encrypt").value = '';
+                document.getElementById("encrypted_text").value = '';
+                document.getElementById("code_alert").innerHTML = '';
+                document.getElementById("text_alert").innerHTML = '';
+                return;
+        };
+        function clear() {
+                document.getElementById("code_alert").innerHTML = '';
+                document.getElementById("text_alert").innerHTML = '';
+                return;
+        };
+        function de_clear_all() {
+                document.getElementById("decryption_code1").value = '';
+                document.getElementById("decryption_code2").value = '';
+                document.getElementById("decryption_code3").value = '';
+                document.getElementById("text_to_decrypt").value = '';
+                document.getElementById("decrypted_text").value = '';
+                document.getElementById("de_code_alert").innerHTML = '';
+                document.getElementById("de_text_alert").innerHTML = '';
+                return;
+        };
+        function de_clear() {
+                document.getElementById("de_code_alert").innerHTML = '';
+                document.getElementById("de_text_alert").innerHTML = '';
+                return;
+        };
+        function encrypt(text, code1, code2, code3) {
+          let te = text.value.toString();
+          const t = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', ',', '.', '?', '<', '>', '/', '!', '@', '#', '$', '%', '^', '&', '*', '(', ')', '-', '_', '=', '+', ' ']
+          let myarray = te.split("");
+          let length = te.length;
+          let c1 = (code1.value) % 83;
+          let c2 = (code2.value) % 83;
+          let c3 = (code3.value) % 83;
+          let enc = [];
+          for (let i = 0; i < length; i++) {
+            if (t.includes(myarray[i])) {
+              let index = t.indexOf(myarray[i]);
+              let enindex1 = (index + c1) % 83;
+              let enindex2 = (enindex1 + c2) % 83;
+              let enindex3 = (enindex2 + c3) % 83;
+              c1 += 1;
+              if ((c1 % 83) == 0 & c1 != 0) {
+                c1 = 0;
+                c2 += 1;
+              }
+              if ((c2 % 83) == 0 & c2 != 0) {
+                c2 = 0;
+                c3 += 1;
+              }
+              if ((c3 % 83) == 0) {
+                c3 = 0;
+              }
+              enc[i] = t[enindex3];
+            } else {
+              enc[i] = myarray[i];
+            }
+          }
+          let encrypted = enc.join("");
+          return encrypted;
+        }
+        function decrypt(text, code1, code2, code3) {
+          let te = text.value.toString();
+          const t = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', ',', '.', '?', '<', '>', '/', '!', '@', '#', '$', '%', '^', '&', '*', '(', ')', '-', '_', '=', '+', ' ']
+          let myarray = te.split("");
+          let length = te.length;
+          let c1 = (code1.value) % 83;
+          let c2 = (code2.value) % 83;
+          let c3 = (code3.value) % 83;
+          let decr = [];
+          for (let i = 0; i < length; i++) {
+            if (t.includes(myarray[i])) {
+              let index = t.indexOf(myarray[i]);
+              let deindex1 = (index - c1 + 83) % 83;
+              let deindex2 = (deindex1 - c2 + 83) % 83;
+              let deindex3 = (deindex2 - c3 + 83) % 83;
+              c1 += 1;
+              if ((c1 % 83) == 0 & c1 != 0) {
+                c1 = 0;
+                c2 += 1;
+              }
+              if ((c2 % 83) == 0 & c2 != 0) {
+                c2 = 0;
+                c3 += 1;
+              }
+              if ((c3 % 83) == 0) {
+                c3 = 0;
+              }
+              decr[i] = t[deindex3];
+            } else {
+              decr[i] = myarray[i];
+            }
+          }
+          let decrypted = decr.join("");
+          return decrypted;
+        }
+        document.addEventListener('DOMContentLoaded', function() {
+            document.getElementById("encrypt_text").addEventListener('click', function() {
+                clear_all();
+                document.getElementById("encrypt").addEventListener('click', function() {
+                    clear();
+                    let code1 = document.getElementById("encryption-code1");
+                    let code2 = document.getElementById("encryption-code2");
+                    let code3 = document.getElementById("encryption-code3");
+                    let text = document.getElementById("text_to_encrypt");
+                    if ((code1.value.length < 1) || (code2.value.length < 1) || (code3.value.length < 1)) {
+                        document.getElementById('code_alert').innerHTML = 'Please specify a key with which to encrypt the message.';
+                    }
+                    else if (text.value.length < 1) {
+                        document.getElementById('text_alert').innerHTML = 'No plain text to encrypt!  Please enter or paste plain text in the field above.';
+                    } else {
+                      let encrypted = encrypt(text, code1, code2, code3);
+                      document.getElementById("encrypted_text").value = encrypted;
+                    }
+                });
+            });
+            document.getElementById("decrypt_text").addEventListener('click', function() {
+                de_clear_all();
+                document.getElementById("decrypt").addEventListener('click', function() {
+                    de_clear();
+                    let code1 = document.getElementById("decryption_code1");
+                    let code2 = document.getElementById("decryption_code2");
+                    let code3 = document.getElementById("decryption_code3");
+                    let text = document.getElementById("text_to_decrypt");
+                    if ((code1.value.length < 1) || (code2.value.length < 1) || (code3.value.length < 1)) {
+                        document.getElementById('de_code_alert').innerHTML = 'Please specify a key with which to encrypt the message.';
+                    }
+                    else if (text.value.length < 1) {
+                        document.getElementById('de_text_alert').innerHTML = 'No plain text to encrypt!  Please enter or paste plain text in the field above.';
+                    } else {
+                      let decrypted = decrypt(text, code1, code2, code3);
+                        document.getElementById("decrypted_text").value = decrypted;
+                    }
+                });
+            });
+        });
+    </script>
+
+{% endblock %}

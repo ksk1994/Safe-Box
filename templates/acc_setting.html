@@ -1,0 +1,79 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Account Setting
+{% endblock %}
+
+{% block main %}
+    <div class="container-fluid">
+        <div class="row align-items-start">
+            <div class="col" style="padding: 50px">
+              <div>
+                <p>
+                  <button class="btn btn-info" type="button" data-bs-toggle="collapse" data-bs-target="#changepassword" aria-expanded="false" aria-controls="collapseWidthExample">
+                    Change Password
+                  </button>
+                </p>
+                <div class=" container-fluid py-5 text-center" style="min-height: 120px;">
+                  <div class="collapse collapse-vertical" id="changepassword">
+                    <div style="width: auto;">
+                      <form action="/change_password" method="post">
+                          <div class="mb-3">
+                              <input class="form-control mx-auto w-auto" id="old_password" name="old_password" placeholder="Old Password" type="password">
+                          </div>
+                          <div class="mb-3">
+                              <input class="form-control mx-auto w-auto" id="new_password" name="new_password" placeholder="New Password" type="password">
+                          </div>
+                          <div class="mb-3">
+                              <input class="form-control mx-auto w-auto" id="confirmation" name="confirmation" placeholder="confirm Password" type="password">
+                          </div>
+                                <p id="passwordHelpInline" class="form-text">Strong password must have minimum 8 charactors including at least one uppercase letter, one lowercase letter and one digit.</p>
+                          <button class="btn btn-outline-primary" type="submit">Change Password</button>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+                <p>
+                  <button class="btn btn-info" type="button" data-bs-toggle="collapse" data-bs-target="#deleteacc" aria-expanded="false" aria-controls="collapseWidthExample">
+                    Delete Account
+                  </button>
+                </p>
+                <div class=" container-fluid py-5 text-center" style="min-height: 120px;">
+                  <div class="collapse collapse-vertical" id="deleteacc">
+                    <div  style="width: auto;">
+                      <form action="/delete_acc" method="post">
+                          <div class="mb-3">
+                              <input class="form-control mx-auto w-auto" id="password" name="password" placeholder="Password" type="password">
+                          </div>
+                          <button class="btn btn-outline-primary" type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Delete Account</button>
+                          <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                              <div class="modal-dialog">
+                                <div class="modal-content">
+                                  <div class="modal-header">
+                                    <h5 class="modal-title" id="staticBackdropLabel">Warning</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                  </div>
+                                  <div class="modal-body">
+                                    All your saved meterials will be deleted.
+                                  </div>
+                                  <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                    <button type="button submit" class="btn btn-primary">Understood</button>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              </div>
+            <div class="col" class="img-fluid rounded float-end" style="padding: 50px">
+              <img src="/static/main1.png" alt="safe box" class="img-fluid" width="auto" height="auto">
+          </div>
+        </div>
+    </div>
+
+
+{% endblock %}

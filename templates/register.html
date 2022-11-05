@@ -1,0 +1,35 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Register Page
+{% endblock %}
+
+{% block main %}
+    <div class="container-fluid">
+        <div class="row align-items-start">
+            <div class="col" style="padding: 50px">
+                <form action="/register" method="post">
+                    <div class="mb-3">
+                        <input autocomplete="off" autofocus class="form-control mx-auto w-auto" id="name" name="name" placeholder="Full Name" type="text">
+                    </div>
+                    <div class="mb-3">
+                        <input autocomplete="off" autofocus class="form-control mx-auto w-auto" id="username" name="username" placeholder="Username" type="text">
+                    </div>
+                    <div class="mb-3">
+                        <input class="form-control mx-auto w-auto" id="password" name="password" placeholder="Password" type="password">
+                    </div>
+                    <div class="mb-3">
+                        <input class="form-control mx-auto w-auto" id="confirmation" name="confirmation" placeholder="confirm Password" type="password">
+                    </div>
+                    <p id="passwordHelpInline" class="form-text">Strong password must have minimum 8 charactors including at least one uppercase letter, one lowercase letter and one digit.</p>
+                    <button class="btn btn-outline-primary" type="submit">Register</button>
+                </form>
+            </div>
+            <div class="col" class="img-fluid rounded float-end" style="padding: 50px">
+                <img src="/static/main1.png" alt="safe box" class="img-fluid" width="auto" height="auto">
+            </div>
+        </div>
+    </div>
+
+
+{% endblock %}

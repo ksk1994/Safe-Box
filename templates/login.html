@@ -1,0 +1,28 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Login Page
+{% endblock %}
+
+{% block main %}
+    <div class="container-fluid">
+        <div class="row align-items-start">
+            <div class="col" style="padding: 50px">
+                <form action="/login" method="post">
+                    <div class="mb-3">
+                        <input autocomplete="off" autofocus class="form-control mx-auto w-auto" id="username" name="username" placeholder="Username" type="text">
+                    </div>
+                    <div class="mb-3">
+                        <input class="form-control mx-auto w-auto" id="password" name="password" placeholder="Password" type="password">
+                    </div>
+                    <button class="btn btn-outline-primary" type="submit">Log In</button>
+                </form>
+            </div>
+            <div class="col" class="img-fluid rounded float-end" style="padding: 50px">
+                <img src="/static/main1.png" alt="safe box" class="img-fluid" width="auto" height="auto">
+            </div>
+        </div>
+    </div>
+
+
+{% endblock %}

@@ -1,0 +1,96 @@
+/* Size for brand */
+nav .navbar-brand
+{
+    font-size: xx-large;
+}
+
+/* Colors for brand */
+nav .navbar-brand .blue
+{
+    color: #05386B;
+}
+
+nav .navbar-brand .blue:hover
+{
+    color: #3FEEE6;
+}
+nav .navbar-brand .light
+{
+    color: #379683;
+}
+
+
+nav .navbar-brand .light:hover
+{
+    color: #CAFAFE;
+}
+nav .nav-item
+{
+    background-color: #379683;
+    border-radius: 5px;
+    padding: 5px;
+    margin: 3px;
+}
+
+nav .nav-item:hover
+{
+    background-color: #8EE4AF;
+    border-radius: 15px;
+    padding: 5px;
+    margin: 3px;
+}
+
+.left {
+    float: left;
+    width: 300px;
+    margin: 3px;
+    padding: 10px;
+  }
+
+.style {
+    background-color: #EDF5E1;
+    border-radius: 3px;
+    padding: 5px;
+    margin: 3px;
+}
+
+.stybutton {
+    background-color: #05386B;
+    margin: 3px;
+    border-radius: 5px;
+    color: #EDF5E1;
+
+}
+
+.stybutton:hover {
+    background-color: #1D5185;
+    margin: 3px;
+    border-radius: 8px;
+    color: #EDF5E1;
+}
+
+.dataarea {
+    background-color: #EDF5E1;
+    border-radius: 3px;
+    border: 1px #EDF5E1;
+    color: #05386B;
+}
+
+.dataarea:hover {
+    background-color: #DDE5D1;
+    border-radius: 3px;
+    color: #05386B;
+}
+
+
+.dataheader {
+    background-color: #379683;
+    border-radius: 1px;
+    color: #EDF5E1;
+}
+
+.dataheader:hover {
+    background-color: #47a693;
+    border-radius: 1px;
+    color: #EDF5E1;
+}
